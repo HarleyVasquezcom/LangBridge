@@ -1,0 +1,16 @@
+{
+  "name": "langbridge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LangBridge — phrase-to-phrase, page-to-page: a small built-in EN-ES-FR dictionary that translates words under your cursor, whole phrases in the popup, and known words on the page itself. Everything runs locally.",
+  "type": "module",
+  "scripts": {
+    "probe": "node tests/probe.mjs",
+    "zip": "node tools/zip.mjs",
+    "gen-icons": "node tools/gen-icons.mjs"
+  },
+  "devDependencies": {
+    "archiver": "^7.0.1",
+    "puppeteer": "^25.7.0"
+  }
+}

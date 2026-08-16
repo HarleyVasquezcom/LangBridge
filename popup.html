@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LangBridge</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="lblogo" aria-hidden="true"></span>
+    <div>
+      <h1 data-i18n="name">LangBridge</h1>
+      <p class="tag" data-i18n="tagline">phrase-to-phrase, page-to-page</p>
+    </div>
+  </div>
+  <div class="toprow">
+    <select id="langSel" data-i18n-lang aria-label="Language">
+      <option value="en">EN</option>
+      <option value="es">ES</option>
+      <option value="fr">FR</option>
+      <option value="pt">PT</option>
+      <option value="it">IT</option>
+      <option value="de">DE</option>
+    </select>
+    <a class="credit" data-i18n="credit" href="https://www.linkedin.com/in/harleyvasquez/" target="_blank" rel="noreferrer">Built by Harley Vásquez</a>
+  </div>
+</header>
+
+<section class="card">
+  <div class="pairopts">
+    <label><span data-i18n="from">From</span>
+      <select id="fromSel">
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+        <option value="fr">FR</option>
+      </select>
+    </label>
+    <span class="arrow">&rarr;</span>
+    <label><span data-i18n="to">To</span>
+      <select id="toSel">
+        <option value="en">EN</option>
+        <option value="es">ES</option>
+        <option value="fr">FR</option>
+      </select>
+    </label>
+  </div>
+  <div class="phrasewrap">
+    <input id="phraseInput" type="text" data-i18n="placeholder" placeholder="Type a word or phrase…" spellcheck="false">
+    <button id="goBtn" class="primary" data-i18n="translate">Translate</button>
+  </div>
+  <p class="example" data-i18n="example">Example: house, water, thank you, good morning…</p>
+  <div id="result" role="status"></div>
+</section>
+
+<section class="card">
+  <button id="pageBtn" class="secondary" data-i18n="pageTranslate">Translate page (current tab)</button>
+  <p class="dictnote" data-i18n="dictNote">Built-in tri-lingual dictionary: about 200 terms (EN ↔ ES, EN ↔ FR; ES ↔ FR runs through the English pivot).</p>
+</section>
+
+<div id="status" role="status"></div>
+
+<script src="i18n.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LangBridge — phrase-to-phrase, page-to-page</title>
+<style>
+  :root {
+    --amber: #f59e0b;
+    --honey: #fbbf24;
+    --dark: #451a03;
+    --bg: #141004;
+    --card: #241a08;
+    --text: #fdf3e0;
+    --muted: #c9a86a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px 40px;
+  }
+  .wrap { max-width: 760px; width: 100%; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--honey); font-size: 18px; }
+  .bublogo {
+    width: 30px; height: 32px; position: relative; flex: none;
+    background: linear-gradient(135deg, var(--honey) 0 42%, #fcd34d 42% 52%, var(--honey) 52%);
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  }
+  .bublogo::after { content: 'ΛB'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--dark); font-weight: 800; font-size: 11px; }
+  select { background: var(--card); color: var(--text); border: 1px solid #5b3a10; border-radius: 8px; padding: 5px 8px; }
+  .hero { text-align: center; margin-bottom: 44px; }
+  .hero h1 { font-size: 44px; color: var(--honey); letter-spacing: 1px; }
+  .hero p.tag { color: var(--muted); font-size: 17px; margin-top: 8px; }
+  .bubrow { display: flex; justify-content: center; gap: 14px; margin: 26px 0 30px; }
+  .bubrow i {
+    width: 74px; height: 84px; display: block;
+    background: linear-gradient(135deg, var(--honey) 0 45%, #fcd34d 45% 55%, var(--honey) 55%);
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+    animation: drift 5s ease-in-out infinite;
+  }
+  .bubrow i:nth-child(2) { animation-delay: 0.8s; transform: scale(0.82); opacity: 0.85; }
+  .bubrow i:nth-child(3) { animation-delay: 1.5s; }
+  .bubrow i:nth-child(4) { animation-delay: 0.4s; transform: scale(0.7); opacity: 0.7; }
+  @keyframes drift {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .hero p.honest { color: var(--muted); font-size: 13.5px; line-height: 1.65; max-width: 620px; margin: 0 auto; }
+  .cta {
+    display: inline-block; margin-top: 28px; background: var(--amber); color: #241200;
+    font-weight: 700; padding: 12px 26px; border-radius: 999px; text-decoration: none; font-size: 15px;
+  }
+  .cta:hover { filter: brightness(1.12); }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 46px; }
+  .card { background: var(--card); border: 1px solid #5b3a10; border-radius: 14px; padding: 18px; }
+  .card h3 { color: var(--honey); font-size: 15px; margin-bottom: 8px; }
+  .card li { margin-left: 18px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+  .perms { margin-top: 16px; }
+  .permnote { background: var(--card); border: 1px solid #5b3a10; border-radius: 14px; padding: 16px 18px; margin-top: 16px; font-size: 12.5px; color: var(--muted); line-height: 1.7; }
+  .permnote b { color: var(--honey); }
+  footer { margin-top: 44px; text-align: center; font-size: 12px; color: var(--muted); }
+  footer a { color: var(--amber); text-decoration: none; }
+  @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="logo"><span class="bublogo" aria-hidden="true"></span><span data-i18n="brand">LangBridge</span></div>
+    <select id="langSel" data-i18n-lang aria-label="Language">
+      <option value="en">EN</option>
+      <option value="es">ES</option>
+      <option value="fr">FR</option>
+      <option value="pt">PT</option>
+      <option value="it">IT</option>
+      <option value="de">DE</option>
+    </select>
+  </div>
+
+  <section class="hero">
+    <h1 data-i18n="heroTitle">LangBridge</h1>
+    <p class="tag" data-i18n="tagline">phrase-to-phrase, page-to-page</p>
+    <div class="bubrow" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <p class="honest" data-i18n="honest">A small built-in tri-lingual dictionary (~200 terms, EN-ES-FR) that translates words under your cursor, whole phrases in the popup, and the known words of a whole page. Everything runs locally in chrome.storage.local — no network calls, no accounts, no tracking.</p>
+    <a class="cta" href="langbridge.zip" download data-i18n="dl">Download ZIP</a>
+  </section>
+
+  <section class="cards">
+    <div class="card">
+      <h3 data-i18n="how">What it does</h3>
+      <ul>
+        <li data-i18n="h1">Click a word on a page (on http://127.0.0.1) to get its translation in a small tooltip, with a copy button.</li>
+        <li data-i18n="h2">Type a phrase in the popup and translate it word by word; unknown words stay and are reported honestly.</li>
+        <li data-i18n="h3">Click the floating LB button (or “Translate page” in the popup) to replace every known word of the page; click again to restore the original text.</li>
+        <li data-i18n="h4">From/to pair (EN/ES/FR) is remembered; EN ↔ ES and EN ↔ FR are direct, ES ↔ FR runs through the English pivot.</li>
+        <li data-i18n="h5">Interface in 6 languages (EN, ES, FR, PT, IT, DE) — picker persists.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 data-i18n="perm">Permissions — minimal and used</h3>
+      <ul>
+        <li data-i18n="p1">storage — UI language and the from/to pair live in chrome.storage.local.</li>
+        <li data-i18n="p2">Content script only activates on http://127.0.0.1 (a local dev server) — extend matches in manifest.json if you want it elsewhere.</li>
+        <li data-i18n="p3">No host permissions, no tabs permission, no background service worker, no network.</li>
+      </ul>
+      <div class="permnote" data-i18n="note"><b>Honest note:</b> this is a ~200-term toy dictionary, not a real translator. Out-of-dictionary words are left as they are and reported, never invented.</div>
+    </div>
+  </section>
+
+  <section class="card perms">
+    <h3 data-i18n="install">Install</h3>
+    <ul>
+      <li data-i18n="i1">Download langbridge.zip and unpack it somewhere permanent.</li>
+      <li data-i18n="i2">Open chrome://extensions and enable Developer mode.</li>
+      <li data-i18n="i3">Click “Load unpacked” and pick the folder (keep the folder after loading).</li>
+      <li data-i18n="i4">Open a local page, click a word, type a phrase, or hit the LB button.</li>
+    </ul>
+  </section>
+
+  <footer><a data-i18n="credit" href="https://www.linkedin.com/in/harleyvasquez/" target="_blank" rel="noreferrer">Built by Harley Vásquez</a></footer>
+</div>
+
+<script>
+  const I18N = {
+    en: { brand: 'LangBridge', heroTitle: 'LangBridge', tagline: 'phrase-to-phrase, page-to-page', honest: 'A small built-in tri-lingual dictionary (~200 terms, EN-ES-FR) that translates words under your cursor, whole phrases in the popup, and the known words of a whole page. Everything runs locally in chrome.storage.local — no network calls, no accounts, no tracking.', dl: 'Download ZIP', how: 'What it does', h1: 'Click a word on a page (on http://127.0.0.1) to get its translation in a small tooltip, with a copy button.', h2: 'Type a phrase in the popup and translate it word by word; unknown words stay and are reported honestly.', h3: 'Click the floating LB button (or “Translate page” in the popup) to replace every known word of the page; click again to restore the original text.', h4: 'From/to pair (EN/ES/FR) is remembered; EN ↔ ES and EN ↔ FR are direct, ES ↔ FR runs through the English pivot.', h5: 'Interface in 6 languages (EN, ES, FR, PT, IT, DE) — picker persists.', perm: 'Permissions — minimal and used', p1: 'storage — UI language and the from/to pair live in chrome.storage.local.', p2: 'Content script only activates on http://127.0.0.1 (a local dev server) — extend matches in manifest.json if you want it elsewhere.', p3: 'No host permissions, no tabs permission, no background service worker, no network.', note: '<b>Honest note:</b> this is a ~200-term toy dictionary, not a real translator. Out-of-dictionary words are left as they are and reported, never invented.', install: 'Install', i1: 'Download langbridge.zip and unpack it somewhere permanent.', i2: 'Open chrome://extensions and enable Developer mode.', i3: 'Click “Load unpacked” and pick the folder (keep the folder after loading).', i4: 'Open a local page, click a word, type a phrase, or hit the LB button.', credit: 'Built by Harley Vásquez' },
+    es: { brand: 'LangBridge', heroTitle: 'LangBridge', tagline: 'de frase a frase, de página a página', honest: 'Un pequeño diccionario trilingüe integrado (~200 términos, EN-ES-FR) que traduce palabras bajo el cursor, frases completas en el popup y las palabras conocidas de una página entera. Todo funciona localmente en chrome.storage.local — sin llamadas de red, sin cuentas, sin rastreo.', dl: 'Descargar ZIP', how: 'Qué hace', h1: 'Haz clic en una palabra de una página (en http://127.0.0.1) para ver su traducción en un pequeño tooltip, con botón de copiar.', h2: 'Escribe una frase en el popup y tradúcela palabra por palabra; las palabras desconocidas se quedan y se reportan con honestidad.', h3: 'Pulsa el botón flotante LB (o “Traducir página” en el popup) para reemplazar todas las palabras conocidas de la página; pulsa de nuevo para restaurar el texto original.', h4: 'El par de/de hacia (EN/ES/FR) se recuerda; EN ↔ ES y EN ↔ FR son directos, ES ↔ FR pasa por el pivote inglés.', h5: 'Interfaz en 6 idiomas (EN, ES, FR, PT, IT, DE) — el selector persiste.', perm: 'Permisos — mínimos y usados', p1: 'storage — el idioma de la interfaz y el par de traducción viven en chrome.storage.local.', p2: 'El content script solo se activa en http://127.0.0.1 (un servidor local) — amplía los matches en manifest.json si quieres usarlo en otros sitios.', p3: 'Sin permisos de host, sin permiso de pestañas, sin service worker de fondo, sin red.', note: '<b>Nota honesta:</b> es un diccionario de juguete de ~200 términos, no un traductor real. Las palabras fuera del diccionario se quedan como están y se reportan, nunca se inventan.', install: 'Instalación', i1: 'Descarga langbridge.zip y descomprímelo en un lugar permanente.', i2: 'Abre chrome://extensions y activa el modo desarrollador.', i3: 'Haz clic en “Cargar descomprimida” y elige la carpeta (consérvala).', i4: 'Abre una página local, haz clic en una palabra, escribe una frase o pulsa el botón LB.', credit: 'Creado por Harley Vásquez' },
+    fr: { brand: 'LangBridge', heroTitle: 'LangBridge', tagline: 'de phrase en phrase, de page en page', honest: 'Un petit dictionnaire trilingue intégré (~200 termes, EN-ES-FR) qui traduit les mots sous le curseur, des phrases entières dans le popup et les mots connus de toute une page. Tout fonctionne en local dans chrome.storage.local — aucun appel réseau, aucun compte, aucun suivi.', dl: 'Télécharger le ZIP', how: 'Ce qu’il fait', h1: 'Cliquez sur un mot d’une page (sur http://127.0.0.1) pour obtenir sa traduction dans une petite infobulle, avec un bouton copier.', h2: 'Tapez une phrase dans le popup et traduisez-la mot à mot ; les mots inconnus restent et sont signalés honnêtement.', h3: 'Cliquez sur le bouton flottant LB (ou « Traduire la page » dans le popup) pour remplacer tous les mots connus de la page ; re-cliquez pour restaurer le texte original.', h4: 'La paire de/vers (EN/ES/FR) est mémorisée ; EN ↔ ES et EN ↔ FR sont directs, ES ↔ FR passe par le pivot anglais.', h5: 'Interface en 6 langues (EN, ES, FR, PT, IT, DE) — le sélecteur persiste.', perm: 'Permissions — minimales et utilisées', p1: 'storage — la langue d’interface et la paire de traduction vivent dans chrome.storage.local.', p2: 'Le content script ne s’active que sur http://127.0.0.1 (un serveur local) — étendez les matches dans manifest.json pour l’utiliser ailleurs.', p3: 'Aucune permission d’hôte, aucune permission d’onglets, aucun service worker de fond, aucun réseau.', note: '<b>Note honnête :</b> c’est un dictionnaire-jouet d’environ 200 termes, pas un vrai traducteur. Les mots hors dictionnaire restent tels quels et sont signalés, jamais inventés.', install: 'Installation', i1: 'Téléchargez langbridge.zip et décompressez-le dans un emplacement permanent.', i2: 'Ouvrez chrome://extensions et activez le mode développeur.', i3: 'Cliquez sur « Charger l’extension non empaquetée » et choisissez le dossier (conservez-le).', i4: 'Ouvrez une page locale, cliquez sur un mot, tapez une phrase ou appuyez sur le bouton LB.', credit: 'Créé par Harley Vásquez' },
+    pt: { brand: 'LangBridge', heroTitle: 'LangBridge', tagline: 'de frase a frase, de página a página', honest: 'Um pequeno dicionário trilíngue integrado (~200 termos, EN-ES-FR) que traduz palavras sob o cursor, frases inteiras no popup e as palavras conhecidas de uma página inteira. Tudo funciona localmente no chrome.storage.local — sem chamadas de rede, sem contas, sem rastreamento.', dl: 'Baixar ZIP', how: 'O que faz', h1: 'Clique em uma palavra de uma página (em http://127.0.0.1) para ver a tradução em uma pequena dica, com botão de copiar.', h2: 'Digite uma frase no popup e traduza palavra por palavra; palavras desconhecidas permanecem e são reportadas com honestidade.', h3: 'Clique no botão flutuante LB (ou “Traduzir página” no popup) para substituir todas as palavras conhecidas da página; clique de novo para restaurar o texto original.', h4: 'O par de/para (EN/ES/FR) é lembrado; EN ↔ ES e EN ↔ FR são diretos, ES ↔ FR passa pelo pivô inglês.', h5: 'Interface em 6 idiomas (EN, ES, FR, PT, IT, DE) — o seletor persiste.', perm: 'Permissões — mínimas e usadas', p1: 'storage — o idioma da interface e o par de tradução ficam no chrome.storage.local.', p2: 'O content script só ativa em http://127.0.0.1 (um servidor local) — amplie os matches no manifest.json se quiser usá-lo em outros sites.', p3: 'Sem permissões de host, sem permissão de abas, sem service worker de fundo, sem rede.', note: '<b>Nota honesta:</b> é um dicionário de brinquedo com ~200 termos, não um tradutor real. Palavras fora do dicionário permanecem como estão e são reportadas, nunca inventadas.', install: 'Instalação', i1: 'Baixe o langbridge.zip e descompacte em um lugar permanente.', i2: 'Abra chrome://extensions e ative o modo desenvolvedor.', i3: 'Clique em “Carregar sem compactação” e escolha a pasta (mantenha-a).', i4: 'Abra uma página local, clique em uma palavra, digite uma frase ou aperte o botão LB.', credit: 'Criado por Harley Vásquez' },
+    it: { brand: 'LangBridge', heroTitle: 'LangBridge', tagline: 'di frase in frase, di pagina in pagina', honest: 'Un piccolo dizionario trilingue integrato (~200 termini, EN-ES-FR) che traduce le parole sotto il cursore, frasi intere nel popup e le parole note di un’intera pagina. Tutto funziona in locale in chrome.storage.local — nessuna chiamata di rete, nessun account, nessun tracciamento.', dl: 'Scarica ZIP', how: 'Cosa fa', h1: 'Clicca su una parola di una pagina (su http://127.0.0.1) per vedere la traduzione in una piccola infopanel, con pulsante copia.', h2: 'Digita una frase nel popup e traducila parola per parola; le parole sconosciute restano e vengono segnalate onestamente.', h3: 'Clicca sul pulsante fluttuante LB (o “Traduci pagina” nel popup) per sostituire tutte le parole note della pagina; clicca di nuovo per ripristinare il testo originale.', h4: 'La coppia da/a (EN/ES/FR) viene ricordata; EN ↔ ES e EN ↔ FR sono diretti, ES ↔ FR passa dal pivot inglese.', h5: 'Interfaccia in 6 lingue (EN, ES, FR, PT, IT, DE) — il selettore persiste.', perm: 'Permessi — minimi e usati', p1: 'storage — lingua dell’interfaccia e coppia di traduzione vivono in chrome.storage.local.', p2: 'Il content script si attiva solo su http://127.0.0.1 (un server locale) — estendi i matches in manifest.json se lo vuoi altrove.', p3: 'Nessun permesso host, nessun permesso schede, nessun service worker in background, nessuna rete.', note: '<b>Nota onesta:</b> è un dizionario giocattolo di ~200 termini, non un vero traduttore. Le parole fuori dizionario restano come sono e vengono segnalate, mai inventate.', install: 'Installazione', i1: 'Scarica langbridge.zip e decomprimilo in un posto permanente.', i2: 'Apri chrome://extensions e attiva la modalità sviluppatore.', i3: 'Clicca su “Carica estensione non pacchettizzata” e scegli la cartella (conservala).', i4: 'Apri una pagina locale, clicca su una parola, digita una frase o premi il pulsante LB.', credit: 'Creato da Harley Vásquez' },
+    de: { brand: 'LangBridge', heroTitle: 'LangBridge', tagline: 'von Satz zu Satz, von Seite zu Seite', honest: 'Ein kleines integriertes dreisprachiges Wörterbuch (~200 Begriffe, EN-ES-FR), das Wörter unter dem Mauszeiger, ganze Sätze im Popup und die bekannten Wörter einer ganzen Seite übersetzt. Alles läuft lokal in chrome.storage.local — keine Netzwerkaufrufe, keine Konten, kein Tracking.', dl: 'ZIP herunterladen', how: 'Was es tut', h1: 'Klicke auf ein Wort einer Seite (auf http://127.0.0.1), um die Übersetzung in einem kleinen Tooltip mit Kopier-Button zu sehen.', h2: 'Tippe einen Satz ins Popup und übersetze ihn Wort für Wort; unbekannte Wörter bleiben und werden ehrlich gemeldet.', h3: 'Klicke auf den schwebenden LB-Button (oder „Seite übersetzen“ im Popup), um alle bekannten Wörter der Seite zu ersetzen; klicke erneut, um den Originaltext wiederherzustellen.', h4: 'Das Von/Nach-Paar (EN/ES/FR) wird gemerkt; EN ↔ ES und EN ↔ FR sind direkt, ES ↔ FR läuft über den englischen Pivot.', h5: 'Oberfläche in 6 Sprachen (EN, ES, FR, PT, IT, DE) — die Auswahl bleibt erhalten.', perm: 'Berechtigungen — minimal und genutzt', p1: 'storage — UI-Sprache und Übersetzungspaar leben in chrome.storage.local.', p2: 'Das Content-Script aktiviert sich nur auf http://127.0.0.1 (ein lokaler Server) — erweitere die matches in manifest.json für andere Seiten.', p3: 'Keine Host-Berechtigungen, keine Tab-Berechtigungen, kein Background-Service-Worker, kein Netzwerk.', note: '<b>Ehrlicher Hinweis:</b> Dies ist ein Spielzeug-Wörterbuch mit ~200 Begriffen, kein echter Übersetzer. Wörter außerhalb des Wörterbuchs bleiben unverändert und werden gemeldet, nie erfunden.', install: 'Installation', i1: 'Lade langbridge.zip herunter und entpacke es an einen dauerhaften Ort.', i2: 'Öffne chrome://extensions und aktiviere den Entwicklermodus.', i3: 'Klicke auf „Entpackte Erweiterung laden“ und wähle den Ordner (behalte ihn).', i4: 'Öffne eine lokale Seite, klicke auf ein Wort, tippe einen Satz oder drücke den LB-Button.', credit: 'Erstellt von Harley Vásquez' },
+  };
+  const KEY = 'lb:landingLang';
+  const SUPPORTED = ['en', 'es', 'fr', 'pt', 'it', 'de'];
+  async function current() {
+    let lang;
+    try { const s = await chrome.storage.local.get(KEY); lang = s[KEY]; } catch (e) { /* fallback */ }
+    if (typeof lang !== 'string' || !SUPPORTED.includes(lang)) {
+      lang = (navigator.language || 'en').toLowerCase().split('-')[0];
+      if (!SUPPORTED.includes(lang)) lang = 'en';
+    }
+    return lang;
+  }
+  async function apply() {
+    const lang = await current();
+    const d = I18N[lang] || I18N.en;
+    document.title = d.heroTitle + ' — ' + d.tagline;
+    for (const el of document.querySelectorAll('[data-i18n]')) {
+      const k = el.getAttribute('data-i18n');
+      if (k === 'note') { el.innerHTML = d[k]; continue; }
+      el.textContent = d[k] || I18N.en[k];
+    }
+    const sel = document.querySelector('[data-i18n-lang]');
+    if (sel) sel.value = lang;
+  }
+  document.querySelector('[data-i18n-lang]').addEventListener('change', async (e) => {
+    try { await chrome.storage.local.set({ [KEY]: e.target.value }); } catch (err) { localStorage.setItem(KEY, e.target.value); }
+    await apply();
+  });
+  apply();
+</script>
+</body>
+</html>
