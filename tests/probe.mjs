@@ -354,15 +354,24 @@ try {
     }
     check('deployed landing reachable (200)', dlOk, '');
     if (dlOk) {
-      await dl.evaluate(() => chrome.storage.local.set({ 'lb:lang': 'es' })).catch(() => {});
-      await dl.waitForTimeout ? null : await sleep(900);
+      const setEs = await dl.evaluate(() => {
+        try { localStorage.setItem('lb:landingLang', 'es'); return true; } catch (e) { return false; }
+      }).catch(() => false);
+      let reloaded = false;
+      if (setEs) {
+        try {
+          await dl.reload({ waitUntil: 'domcontentloaded', timeout: 25000 });
+          reloaded = true;
+        } catch (e) { reloaded = false; }
+      }
+      await sleep(900);
       const dlEs = await dl.evaluate(() => ({
         title: document.title,
         hero: document.querySelector('[data-i18n="heroTitle"]')?.textContent,
         tag: document.querySelector('[data-i18n="tagline"]')?.textContent,
         credit: document.querySelector('[data-i18n="credit"]')?.textContent,
       }));
-      check('deployed landing loads i18n (es tag)', dlEs.tag === 'de frase a frase, de página a página', dlEs.tag);
+      check('deployed landing loads i18n (es tag)', !!setEs && reloaded && dlEs.tag === 'de frase a frase, de página a página', dlEs.tag);
       check('deployed landing has download link', (await dl.evaluate(() => !!document.querySelector('a[href$="langbridge.zip"]'))), '');
     }
     safeClose(dl);
