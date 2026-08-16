@@ -50,7 +50,7 @@ npm run probe
 
 Built by [Harley Vásquez](https://www.linkedin.com/in/harleyvasquez/) — no third-party brands, no tracking, no telemetry.
 
-Landing page: `https://langbridge.vercel.app`
+Landing page: `https://langbridge-alpha.vercel.app`
 
 ---
 
