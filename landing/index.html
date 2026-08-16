@@ -139,7 +139,10 @@
   const SUPPORTED = ['en', 'es', 'fr', 'pt', 'it', 'de'];
   async function current() {
     let lang;
-    try { const s = await chrome.storage.local.get(KEY); lang = s[KEY]; } catch (e) { /* fallback */ }
+    try { const s = await chrome.storage.local.get(KEY); lang = s[KEY]; } catch (e) { /* no extension context */ }
+    if (typeof lang !== 'string') {
+      try { lang = localStorage.getItem(KEY) || undefined; } catch (e) { /* storage blocked */ }
+    }
     if (typeof lang !== 'string' || !SUPPORTED.includes(lang)) {
       lang = (navigator.language || 'en').toLowerCase().split('-')[0];
       if (!SUPPORTED.includes(lang)) lang = 'en';
